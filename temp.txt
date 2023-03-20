@@ -1,0 +1,314 @@
+Informacioni sistem - hardver, komunikaciona oprema i softver za prikupljanje, kreiranje, obradu i čuvanje podataka.
+Konkurentni događaji - događaji koji se pojave u istom vremenskom intervalu.
+Paralelno programiranje - program koji koristi 2+ procesora unutar istog fizićkog ili virtuelnog računara.
+Distribuirano programiranje - program koji koristi isti princip kao PP, ali procesi mogu da se izvršavaju na različitim računarima.
+
+def.
+Distribuiran sistem je mnoštvo povezanih resursa koje korisnik doživaljava kao jedan jedinstven i koherentan sistem.
+DS je u suprotnosti sa centralizovanim sistemom (u kom postoji jedan računar ili jedan proces).
+
+Osobine dobrog DS:
+ - razlika među računarima i način komunikacije su sakriveni od korisnika
+ - korisnici i aplikacije uvek interaguju sa DS na konzistentat i jednoobrazan način
+ - lako se proširuje
+ - podržava heterogene računare i mreže
+ - koristi slojevito organizovan softver
+
+Loše osobine DS (u odnosu na centralizovan sistem):
+ - procesi i softver su veoma složeni
+ - performanse rešavanja zadataka se ne skaliraju adekvatno
+ - negativan uticaj na informacionu bezbednost
+ - toerijski zahtevi koji se postavljaju pred DS se često ne mogu u potpunosti realizovati
+
+Ciljevi DS - povezivanje, transparentnost, otvorenost, skalabilnost
+
+DS omogućava povezivanje udaljenih elemenata sistema.
+U računarskim mrežama to podrazumeva: deljenje uređaja, razmena datoteka, rad na daljinu...
+U kritičnim infrastrukturama: nadzor, upravljanje, optimizacija u realnom vremenu...
+
+DS je transparentan kada ga korisnici i aplikacije doživljavaju kao jedan računarski sistem i ne obaziru se na složenost i distribuiranost njegovih činioca.
+Tipovi transparentnosti prema:
+ - pristupu		(razlike u reprezentaciji podataka)
+ - lokaciji		(korisniku je nepoznata fizička lokacija resursa)
+ - migraciji		(premeštanje resursa bez uticaja na korisnike)
+ - relokaciji		(premeštanje resursa tokom upotrebe)
+ - replikaciji		(sakrivanje postojanja kopija resursa)
+ - konkurentnosti	(prividno jednovremena upotreba deljenih resursa)
+ - otkazima		(neprimetan oporavak sistema od nepravilnog rada resursa)
+
+Otvoren DS pruža servise po standardnim sintaksnim i semantičkim pravilima.
+Servisi se obično specificiraju preko interfejsa.
+API (Application Programming Interface) je otvoren opis funkcionalnosti koji određeni servis pruža.
+Dobro definisan interfejs je kompletan i neutralan.
+Interoperabilnost - delovi sistema raznih proizvođača mogu da rade zajedno i komuniciraju preko interfejsa.
+Portabilnost - aplikacija razvijana za jedan DS se (bez modifikacija) može izvršavati na drugom sistemu (koji ima iste interfejse kao drugi sistem).
+Proširivost - DS preko dobro definisanih interfejsa omogućava dodavanje novih/zamenu postojećih komponenti.
+
+Skalabilnost je mogućnost proširenja DS na održiv način.
+Tipovi skalabilnosti: po veličini, geografska, administrativna.
+Izazovi u skalabilnim sistemima:
+ - centralizovan servis 	(udar na performanse)
+ - centralizovani podaci	(usporen pristup podacima)
+ - centralizovan algoritam	(odluka se donosi samo na osnovu kompletne informacije)
+Povećanjem jedne ili više tipova skalabilnost trpe performanse DS.
+Tehnike za povećanje performansi DS:
+ - skrivanje zastoja u komunikaciji (asinhrona komunikacija)
+ - distribucija (podela poslova na više malih komponenti)
+ - replikacija (load balancing)
+ - keširanje
+
+Tipovi DS:
+ - distribuirani sistemi za intezivno računanje (klaster, grid)
+ - distibuirani informacioni sistemi (bankarski sistem, Smart Grid)
+ - distribuirani rasplinuti sistemi (IoT - bolnice, senzorske mreže)
+
+Karakteristike klastera:
+ - resursi se nalaze na jednoj geografskoj lokaciji
+ - povezani na istu mrežu
+ - sličan (često isti) hardver
+ - isti OS
+ - homogena administracija
+ - računari rade u paraleli na jednom zadatku
+ - primer: supercomputers, cloud computing data centers
+Karakteristike grida:
+ - značajna geografska distribuiranost
+ - povezani preko WAN mreža
+ - različit hardver
+ - različit OS
+ - heterogena administracija
+ - računari rade u paraleli na jednom zadatku
+ - primer: torrent
+
+Karakteristike DIS:
+ - ograničena geografska distribuiranost
+ - heterogena oprema
+ - heterogene komunikacije, servisi, korisici
+
+Karakteristike DRS:
+ - ograničena geografska distribuiranost
+ - heterogena oprema (uglavnom manje računarske moći)
+ - heterogene komunikacije, servisi
+ - posredno pružanje usluga krajnim korisnicima
+
+Moderni DS kombinuju tehnike paralelnog i distribuiranog programiranja.
+
+Zadaci koji se dešavaju u istom vremenskom intervalu su konkurentni zadaci.
+Tehnike konkurentnosti se koriste da bi program jednovremeno opsluživao više korisnika, i da bi uradio više tokom istog vremena.
+Dva osnovna pristupa za postizanje konkurentnosti su PP i DP.
+
+U PP program koristi 2+ procesora unutar istog fizičkog ili virtuelnog računara.
+u DP program koristi 2+ procesora koji ne moraju biti unutar istog računara.
+Programi se (uglavnom) mogu izvršavati i paralelno i distribuirano.
+
+Nivoi konkurentnosti:
+ - nivo instrukcija
+ - nivo funkcije/procedure
+ - nivo objekta
+ - nivo aplikacije
+
+Prednosti DP:
+ - veća procesorska (računarska) moć na raspolaganju
+ - pristup količinama podataka koji prevazilazi smeštajne kapacitete jednog računara
+ - deljenje skupih resursa (resursi mogu biti veoma udaljeni, ali moraju biti povezani u mrežu)
+ - udvajanje resursa (redundantnost može rešavati probleme ispada kao i brži pristup)
+
+Izazovi u DP:
+ - identifikovanje prirodnog paralelizma u problemu koji se rešava
+ - dizajn softvera prema zadacima koji se mogu jednovremeno izvršavati
+ - koordinacija rešavanja delova zadatka i integracija delova rešenja
+Poteškoće:
+ - data race, deadlock, beskonačno odlaganje
+ - delimični otkazi
+ - nepostojanje globalno tačnog vremena
+ - razlike u protokolima...
+ - upošljavanje prevelikog broja procesora može imati negativne posledice
+
+DS je moguće modelirati matematičkim grafom:
+ - procesi su čvorovi
+ - komunikacioni kanali su grane
+
+Stanje DS čine:
+ - stanja procesa
+ - stanja komunikacionih kanala (skup poruka na kanalima)
+Stanje procesa može da se posmatra kao mašina stanja.
+Prelazi između stanja procesa su rezultat sledećih tipova akcija:
+ - interne akcije
+ - slanje poruke
+ - prijem poruke
+
+Osnovni algoritam izvršava distribuiranu obradu u kom učestvuje 2+ procesa u DS.
+Često se izvršava na klasteru ili gridu.
+Procesi koji učestvuju razmenjuju osnovne poruke.
+
+Kontrolni algoritam nadzire i upravlja izvršavanjem osnovnog algoritma.
+Osnovni zadaci kontrolnog algoritma:
+ - raspodela zadataka
+ - nadzor izvršavanja
+ - detekcija grešaka
+ - oporavak od greške
+ - detekcija završetka obrade
+Procesi koji učestvuju razmenjuju kontrolne poruke.
+
+Infrastruktura je mreža nezavisnih sistema, izgrađenih od strane čoveka, koji služe za proizvodnju i distribuciju resursa i usluga.
+Kritična infrastruktura je ona čiji produženi ispad ima razarajuće efekte na društvo i način života na koji smo navikli.
+
+Smart Grid - EES nove generacije sa visokim uplivom informacionih tehnologija.
+Smart City - pametan grad u kom građani i vlast uz pomoć najnovijih IKT dostignuća optimizuju procese oko sebe.
+IoT - mnoštvo povezanih uređaja, često je primer rasplinutih DS
+
+---
+
+Softverska arhitektura = Logička organizacija softverskih komponenti
+Logička podela zadataka u DS po komponentama
+
+Sistemska arhitektura = Fizička realizacija softverskih komponenti
+Konkretni primerci komponenti se raspoređuju na fizičke ili virtuelne računare
+
+Postoji 4 stila softverske arhitekture:
+ - slojevita arhitektura (3 sloja - UI, processing, data)
+ - objektno-orijentisana arhitektura (komponente - objekti, komunikacija preko kom. sloja)
+ - podacima usredsređena arhitektura (deljeno skladište podataka)
+ - arhitektura zasnovana na događajima (sabirnica)
+Hibrid - deljeni adresni prostor:
+ - arhitektura zasnovana na događajima (slaba povezanost, komunikacija preko poruka, pretplata i dojava)
+ - podacima usredsređena arhitektura (komponente dele podatke, brz pristup podacima)
+
+Stilovi sistemske arhitekture:
+ - centralizovana organizacija (klijent - server)
+ - decentralizovana organizacija (vertikalna, horizontalna)
+ - mešovita organizacija
+
+---
+
+Program je skup instrukcija (tj. programskog koda) u trajnoj memoriji
+Proces je primerak programa koji OS izvršava
+Preključivanjem procesa na CPU se snima kontekst prethodnog i učitava kontekst novog procesa
+
+Nit (engl. thread) izvršava deo zadatka procesa – takođe se preključuje na procesoru
+Nit može da deli podatke sa drugim nitima u okviru istog procesa
+
+Server je proces koji implementira određeni servis za neki skup klijenata u DS
+Dve moguće interne organizacije servera:
+ - iterativan server (jedan proces obrađuje sve zahteve)
+ - konkurentan server (niti obrađuju zahteve) (APACHE SERVER)
+Tipovi konkurentnih servera:
+ - sa više niti (svaki zahtev se prosleđuje drugoj niti u okviru procesa glavnog servera)
+ - sa više procesa (glavni server kreira po jedan novi proces za svaki zahtev)
+
+Endpoint se sastoji od: adrese (računara), porta, opisa servisa (interfejsa)
+Pristupi za rešavanje problema nalaženja servera:
+ - endpoint server
+ - superserver (dispečer)
+
+Klaster - kolekcija računara, povezani LAN mrežom, izvršava se jedan ili više servera
+Klasteri se najčešće organizuju u tri sloja: dispečeri, serveri, distribuirani fajl sistemi
+Administracija klastera - svaki server ponaosob
+
+Tipovi servera sa stanovišta čuvanja stanja klijentskih podataka:
+ - stateless
+ - soft state
+ - stateful
+Perzistencija podataka klijenata se omogućava preko: kolačića, čuvanja stanja klijenta
+
+Sesija je skup zahteva koje jedan klijent šalje ka serveru u konačnom vremenskom intervalu
+Upotreba niti u klijentima u DS prikriva kašnjenje komunikacija, može dobiavljati više odgovora u paraleli
+
+Migracija koda je pomeranje programa
+Migracija procesa je prebacivanje procesa sa jednog na drugi računar
+Glavni razlog za migraciju procesa je optimizacija performansi DS kopiranjem procesa sa jako opterećenih na manje opterećene čvorove
+Proces se sastoji iz tri segmenta:
+ - segment koda		(slaba mobilnost)
+ - segment resursa
+ - segment izvršenja	(jaka mobilnost)
+
+Raspodela opterećenja - koriste statičke i dinamičke metrike za odluke
+
+Smart Grid arhitektura:
+ - procesni podsistem
+ - SCADA podsistem
+ - poslovni podsistem
+Procesi u SCADA podsistemu: serveri, klijenti (HMI), servis istorijskih podataka
+Poslovni podsistem: homogen, jedini ima pristup Internetu, fizički se nalazi u poslovnim objektima
+
+---
+
+Tipovi klasifikacije:
+ - geografska
+ - administritativna (centralizovan, hijerarhijski, distribuiran)
+ - topološka (zvezda, prsten...)
+
+Internet je bez centralne administracije
+
+LAN:
+ - Hub - više portova, šalje pakete na sve portove
+ - Switch - 4-48 portova
+WAN:
+ - Ruter - povezuje nekompatibilne medijume i mreže, koriste protokole za rutiranje
+
+Za uspešnu međuprocesnu komunikaciju portebno je da:
+ - oba procesa koriste zajednički protokol za pakovanje i razmenu poruka
+ - oba procesa koriste zajednički format za kodiranje i dekodiranje sirovih podataka
+Modeli međuprocesne komunikacije na jednom računaru:
+ - imenovane cevi
+ - redovi poruka
+ - deljeni memorijski segmenti
+ - lokalna skladišta podataka
+Međuprocesna komunikacija smanjuje lokacijsku transparentnost i otežava implementaciju distribuirane deljene memorije
+
+Middleware je sloj između OS i aplikacija
+Tipovi komunikacije po principu čuvanja poruka u DS:
+ - perzistentna komunikacija (čuvaju se poruke u middleware)
+ - tranzijentna komunikacija
+Tipovi komunikacije sa stanovišta blokiranja niti iz koje se inicira komunikacija:
+ - asinhrone
+ - sinhrone
+
+Remote Procedure Call (RPC):
+ - tranzijentan
+ - sinhron
+ - distribuirani serveri
+
+Message Oriented Middleware (MOM):
+ - asinhron
+ - perzistentan
+ - slaba zavisnost pošaljioca od primaoca (primaoc ne mora da radi kada se poruka šalje, i obrnuto)
+
+Protokol definiše format, sadržaj i značenje poruka za komunikaciju između elemenata DS
+Primena protokola omogućava realizaciju otvorenosti
+Tipovi protokola:
+ - connection oriented (otvara se komunikacioni kanal)
+ - connectionless
+
+Data streaming - za podatke kod kojih postoji temporalna (vremenska) povezanost sukcesivnih poruka
+Tipova povezanih podataka (na osnovu temporalnih veza):
+ - kontinualna reprezentacija
+ - diskretna reprezentacija
+Tipovi prenosa podataka u streaming komunikaciji:
+ - asinhroni
+ - sinhroni
+ - izohroni
+Streaming se vrši preko HTTP (TCP) i UDP protokola
+
+Statički algoritam za odabir putanje radi sa predefinisanim tabelama za rutiranje
+Dinamički algoritam za odabir putanje (dynamic routing) radi bez predefinisanih tabela za rutiranje, tj. sa nepotpunim informacijama
+
+Dinamički algoritmi su otporniji na delimične otkaze
+Next hop algoritmi koji za bilo koje odredište znaju samo prvi sledeći čvor
+Tipovi rutiranja:
+ - statičko
+ - vektor udaljenosti
+ - stanje linka
+ - vektor putanja
+
+RIP:
+ - vektor udaljenosti
+ - dinamički
+ - na osnovu hop-count
+
+OSPF:
+ - dinamički
+ - na osnovu stanja linka
+ - unutar autonomnih sistema
+
+BGP:
+ - vektor putanje
