@@ -1,25 +1,36 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using Common;
-using System.ServiceModel;
 
-namespace Service
+namespace Server
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            ServiceHost sh = new ServiceHost(typeof(FizickaLicaServis));
+            // using automatski poziva Dispose() metodu
+            using (ServiceHost host = new ServiceHost(typeof(FizickaLiceServer)))
+            {
+                // Konfiguracija servera
+                string adresa = "net.tcp://localhost:4000/IFizickaLica";
+                NetTcpBinding binding = new NetTcpBinding();
 
-            string address = "net.tcp://localhost:4000/ServisFizickihLica";
-            sh.AddServiceEndpoint(typeof(IFizickaLica), new NetTcpBinding(), address);
-            sh.Open();
+                // Otvaranje EP
+                host.AddServiceEndpoint(typeof(IFizickaLica), binding, adresa);
 
-            Console.WriteLine("Servis je uspesno pokrenut.");
-            Console.ReadKey();
+                // Pokretanje servera
+                host.Open();
+                Console.WriteLine($"Servis je uspesno pokrenut na adresi : {adresa}");
+
+                // Server se zatvara kad korisnik pritisne bilo koji taster
+                Console.WriteLine("\nPritisnite [Enter] za zaustavljanje servera.");
+                Console.ReadKey();
+                host.Close();
+            }
         }
     }
 }

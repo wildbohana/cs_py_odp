@@ -1,52 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace z01
+namespace Zadatak1
 {
     class Rectangle : IQuadrilateral
     {
-        public static int numOfInstancesR = 0;
+        // Broj isntanci
+        static int cnt = 0;
 
-		// Polja
-        private int width;
-        private int length;
+        // Polja
+        double width;
+        double length;
 
-		// Propertiji
-        public int Width { get => width; set => width = value; }
-        public int Length { get => length; set => length = value; }
+        // Propertiji
+        public double Width { get => width; set => width = value; }
+        public double Length { get => length; set => length = value; }
 
-		// Konstruktor
-        public Rectangle(int value = 5)
+        // Static metode za static polja!
+        public static int ClassCount()
         {
-            this.width = value;
-            this.length = value;
-
-            numOfInstancesR++;
+            return cnt;
         }
 
-		// Metode
-        public double CalculateArea(int a, int b)
+        // Konstruktori
+        //public Rectangle() : this(1, 1) {}
+        public Rectangle(double width = 1, double length = 1)
         {
-            return a * a;
+            this.width = width;
+            this.length = length;
+            cnt++;
         }
 
-        public double CalculatePerimeter(int a, int b)
+        // Metode
+        public double CalculateArea()
         {
-            return 4 * a;
+            return Width * Length;
         }
 
-        public string ShowInfo()
+        public double CalculatePerimeter()
+        {
+            return 2 * (Width + Length);
+        }
+
+        public void ShowInfo()
         {
             string informacije = "";
 
             informacije += "RECTANGLE\n";
             informacije += "Width:\t" + Width + "\n";
             informacije += "Length:\t" + Length + "\n";
-            informacije += "Prm:\t" + CalculatePerimeter(Width, Length) + "\n";
-            informacije += "Area:\t" + CalculateArea(Width, Length) + "\n";
+            informacije += "Prm:\t" + CalculatePerimeter() + "\n";
+            informacije += "Area:\t" + CalculateArea() + "\n";
 
-            return informacije;
+            Console.WriteLine(informacije);
         }
     }
 }

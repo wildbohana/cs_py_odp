@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace z01
+namespace Zadatak1
 {
     interface IQuadrilateral
     {
-        // Properties
-        int Width { get; set; }
-        int Length { get; set; }
+        // Propertiji
+        double Width { get; set; }
+        double Length { get; set; }
 
         // Metode
-        double CalculatePerimeter(int a, int b);
-        double CalculateArea(int a, int b);
-        string ShowInfo();
+        double CalculatePerimeter();
+        double CalculateArea();
+        void ShowInfo();
     }
 }

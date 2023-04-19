@@ -1,40 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace z02
+namespace Zadatak2
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // Init
-            Tekuci tr = new Tekuci(40000);
-            Devizni dr = new Devizni(20000);
+            DevizniRacun dr = new DevizniRacun("321029022", 5500);
+            TekuciRacun tr = new TekuciRacun("5435342", 0);
 
-            // Inicijalno stanje računa
-            Console.WriteLine(tr);
-            Console.WriteLine(dr);
+            dr.Uplata(1000);
+            dr.Isplata(500);
 
-            // Uplata 1000 dinara na oba
-            tr.uplata(1000);
-            dr.uplata(1000);
+            dr.IspisStanja();
+            dr.Ispis();
 
-            Console.WriteLine("Stanje na oba računa posle uplate:");
-            Console.WriteLine(tr);
-            Console.WriteLine(dr);
+            tr.Uplata(5000);
+            tr.Isplata(2000);
 
-            // Isplata 10000 dinara sa oba
-            tr.isplata(10000);
-            dr.isplata(10000);
-
-            Console.WriteLine("Stanje na oba računa posle uplate:");
-            Console.WriteLine(tr);
-            Console.WriteLine(dr);
-
-            // Nova dva računa - da proverim id
-            Tekuci tr1 = new Tekuci(500);
-            Devizni dr1 = new Devizni(500);
-            Console.WriteLine(tr1);
-            Console.WriteLine(dr1);
+            tr.IspisStanja();
+            tr.Ispis();
         }
     }
 }

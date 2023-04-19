@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace z01
+namespace Zadatak1
 {
     class Program
     {
@@ -10,18 +14,19 @@ namespace z01
             Rectangle kvadrat1 = new Rectangle();
             Parallelogram prl1 = new Parallelogram();
 
-            Console.WriteLine(kvadrat1.ShowInfo());
-            Console.WriteLine(prl1.ShowInfo());
+            kvadrat1.ShowInfo();
+            prl1.ShowInfo();
 
             // Proizvoljno
             Rectangle kvadrat2 = new Rectangle(4);
             Parallelogram prl2 = new Parallelogram(3, 5, 8);
 
-            Console.WriteLine(kvadrat2.ShowInfo());
-            Console.WriteLine(prl2.ShowInfo());
+            kvadrat2.ShowInfo();
+            prl2.ShowInfo();
 
             // Broj instanci
-            Console.WriteLine("Number of rectangle instances: " + Rectangle.numOfInstancesR);
+            Console.WriteLine("Number of rectangle instances: " + Rectangle.ClassCount());
+            Console.ReadKey();
         }
     }
 }

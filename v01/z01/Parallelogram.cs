@@ -1,41 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace z01
+namespace Zadatak1
 {
-    class Parallelogram
+    class Parallelogram : IQuadrilateral
     {
-		// Polja
-        private int width;
-        private int length;
-        private int height;
+        // Polja
+        double width;
+        double length;
+        double height;
 
-		// Propertiji
-        public int Width { get => width; set => width = value; }
-        public int Length { get => length; set => length = value; }
-        public int Height { get => height; set => height = value; }
+        // Propertiji
+        public double Width { get => width; set => width = value; }
+        public double Length { get => length; set => length = value; }
+        public double Height { get => height; set => height = value; }
 
-		// Konstruktor
-        public Parallelogram(int width = 2, int length = 3, int height = 2)
+        // Konstruktori
+        //public Parallelogram() : this(1, 1, 1) {}
+        public Parallelogram(double width = 1, double length = 1, double height = 1)
         {
             this.width = width;
             this.length = length;
             this.height = height;
         }
 
-		// Metode
-        public double CalculateArea(int a, int h)
+        // Metode
+        public double CalculateArea()
         {
-            return a * h;
+            return Width * Height;
         }
 
-        public double CalculatePerimeter(int a, int b)
+        public double CalculatePerimeter()
         {
-            return 2 * (a + b);
+            return 2 * (Width + Length);
         }
 
-        public string ShowInfo()
+        public void ShowInfo()
         {
             string informacije = "";
 
@@ -43,10 +46,10 @@ namespace z01
             informacije += "Width:\t" + Width + "\n";
             informacije += "Length:\t" + Length + "\n";
             informacije += "Height:\t" + Height + "\n";
-            informacije += "Prm:\t" + CalculatePerimeter(Width, Length) + "\n";
-            informacije += "Area:\t" + CalculateArea(Width, Height) + "\n";
+            informacije += "Prm:\t" + CalculatePerimeter() + "\n";
+            informacije += "Area:\t" + CalculateArea() + "\n";
 
-            return informacije;
+            Console.WriteLine(informacije);
         }
     }
 }

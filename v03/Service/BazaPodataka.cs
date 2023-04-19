@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Service
+namespace Server
 {
-    public class BazaPodataka
+    class BazaPodataka
     {
-        public static Dictionary<long, FizickoLice> BazaPodatakaFL = new Dictionary<long, FizickoLice>();
+        public static Dictionary<long, FizickoLice> fizickaLica = new Dictionary<long, FizickoLice>();
     }
 }
