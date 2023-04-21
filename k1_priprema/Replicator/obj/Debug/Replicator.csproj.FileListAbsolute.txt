@@ -1,0 +1,14 @@
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Replicator.exe.config
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Replicator.exe
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Replicator.pdb
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Common.dll
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Common.pdb
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\obj\Debug\Replicator.csproj.AssemblyReference.cache
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\obj\Debug\Replicator.csproj.SuggestedBindingRedirects.cache
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\obj\Debug\Replicator.csproj.CoreCompileInputs.cache
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\obj\Debug\Replicator.csproj.CopyComplete
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\obj\Debug\Replicator.exe
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\obj\Debug\Replicator.pdb
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Server.exe
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Server.pdb
+C:\Users\wildbohana\Desktop\priprema\Template_Priprema_K1\Replicator\bin\Debug\Server.exe.config
