@@ -7,33 +7,37 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-// Dobijaš ovo (prazan Main)
-
 namespace Replicator
 {
     class Program
     {
         static void Main(string[] args)
         {
-            DateTime vreme = new DateTime();
-            Replikator repl = new Replikator();
+            // Klijent koji se povezuje na replikatorski servis otvara kanal ka tom servisu
+            // Preko proksija se pozivaju metode od IReplikator
+
+            DateTime vremePoslednjeReplikacije = DateTime.MinValue;
+            DateTime vreme;
 
             while (true)
             {
                 try
                 {
                     // Kanali i proksiji i za izvor i za odredište (iznova se otvaraju pri svakoj iteraciji)
-                    ChannelFactory<IStudentskaSluzba> cfIzvor = new ChannelFactory<IStudentskaSluzba>("Izvor");
-                    IStudentskaSluzba kIzvor = cfIzvor.CreateChannel();
+                    ChannelFactory<IReplikator> cfIzvor = new ChannelFactory<IReplikator>("Izvor");
+                    IReplikator kIzvor = cfIzvor.CreateChannel();
 
-                    ChannelFactory<IStudentskaSluzba> cfOdrediste = new ChannelFactory<IStudentskaSluzba>("Odrediste");
-                    IStudentskaSluzba kOdrediste = cfOdrediste.CreateChannel();
+                    ChannelFactory<IReplikator> cfOdrediste = new ChannelFactory<IReplikator>("Odrediste");
+                    IReplikator kOdrediste = cfOdrediste.CreateChannel();
 
                     // Replikacija podataka
                     vreme = DateTime.Now;
-                    List<Student> studenti = repl.Preuzmi(kIzvor, vreme);
-                    repl.Posalji(kOdrediste, studenti);
+                    Console.WriteLine("Započeta je replikacija, vreme: " + vreme.ToString());
 
+                    List<Student> studenti = kIzvor.Preuzmi(vremePoslednjeReplikacije);
+                    kOdrediste.Posalji(studenti);
+
+                    vremePoslednjeReplikacije = vreme;
                     Thread.Sleep(4000);
                 }
                 catch (FaultException<StudentskaSluzbaIzuzetak> ex)

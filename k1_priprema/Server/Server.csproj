@@ -49,6 +49,7 @@
     <Compile Include="Korisnik.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Replikator.cs" />
     <Compile Include="StudentskaSluzbaServer.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,20 +7,15 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-// Dobijaš ovo (poluprazno)
-
 namespace Server
 {
-    // Ovo moraš da dopuniš
     public enum EPravaPristupa { Modifikacija, Citanje, Brisanje }
 
     class DirektorijumKorisnika
     {
-        // Ovo dvoje dobijaš
         private const string _pepper = "P&0myWHq";
         private Dictionary<string, Korisnik> korisnici = new Dictionary<string, Korisnik>();
-
-        // Konstruktor je inicijalno prazan
+        
         public DirektorijumKorisnika()
         {
             DodajKorisnka("gost", "123");
@@ -35,23 +30,21 @@ namespace Server
             DodajPravaKorisniku("gost", EPravaPristupa.Citanje);
         }
 
-        // Ovo dobijaš prazno
         public void DodajKorisnka(string korisnickoIme, string lozinka)
         {
             korisnici.Add(korisnickoIme, new Korisnik() { KorisnickoIme = korisnickoIme, Lozinka = KodiraTekst(lozinka) });
         }
 
-        // Ovo dobijaš celo
         private string KodiraTekst(string lozinka)
         {
             using (var sha = SHA256.Create())
             {
-                var computedHash = sha.ComputeHash(Encoding.Unicode.GetBytes(lozinka + _pepper));
+                var computedHash = sha.ComputeHash(
+                Encoding.Unicode.GetBytes(lozinka + _pepper));
                 return Convert.ToBase64String(computedHash);
             }
         }
 
-        // Ovo dobijaš prazno
         public string AutentifikacijaKorisnika(string korisnickoIme, string lozinka)
         {
             if (korisnici.TryGetValue(korisnickoIme, out Korisnik korisnik))
@@ -59,7 +52,7 @@ namespace Server
                 if (KodiraTekst(lozinka).Equals(korisnik.Lozinka))
                 {
                     string token = KodiraTekst(korisnickoIme + _pepper);
-                    korisnik.Autentifikovan = true;                    
+                    korisnik.Autentifikovan = true;
                     korisnik.Token = token;
 
                     return token;
@@ -70,7 +63,6 @@ namespace Server
             throw new FaultException<BezbednosniIzuzetak>(izuzetak);
         }
 
-        // Ovo dobijaš prazno
         public void KorisnikAutentifikovan(string token)
         {
             foreach (Korisnik korisnik in korisnici.Values)
@@ -81,7 +73,6 @@ namespace Server
             throw new FaultException<BezbednosniIzuzetak>(izuzetak);
         }
 
-        // Ovo dobijaš prazno
         public bool KorisnikAutentifikovanIAutorizovan(string token, EPravaPristupa pravo)
         {
             BezbednosniIzuzetak izuzetak = new BezbednosniIzuzetak();
@@ -104,25 +95,21 @@ namespace Server
             throw new FaultException<BezbednosniIzuzetak>(izuzetak);
         }
 
-        // Ovo dobijaš celo
         public bool DodajPravaKorisniku(string korisnickoIme, EPravaPristupa pravoPristupa)
         {
             if (korisnici.TryGetValue(korisnickoIme, out Korisnik korisnik))
             {
                 return korisnik.DodajPravoPristupa(pravoPristupa);
             }
-
             return false;
         }
 
-        // Ovo dobijaš celo
-        public bool ProveriPravoKorisnika(string korisnickoIme, EPravaPristupa pravoPristupa)
+        public bool ProveroPravoKorisnika(string korisnickoIme, EPravaPristupa pravoPristupa)
         {
             if (korisnici.TryGetValue(korisnickoIme, out Korisnik korisnik))
             {
                 return korisnik.ProveriPravoPristupa(pravoPristupa);
             }
-
             return false;
         }
     }

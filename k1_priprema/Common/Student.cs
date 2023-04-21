@@ -5,8 +5,6 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-// Dobijaš ovo (skroz prazno)
-
 namespace Common
 {
     [DataContract]

@@ -5,14 +5,12 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-// Ovo sama praviš
-
 namespace Common
 {
     [DataContract]
     public class StudentskaSluzbaIzuzetak
     {
-        string razlog;
+        private string razlog;
 
         [DataMember]
         public string Razlog { get => razlog; set => razlog = value; }

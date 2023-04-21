@@ -1,5 +1,4 @@
 ﻿using Common;
-using Server;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +6,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
-// Dobijaš ovo (prazan Main)
 
 namespace Client
 {
@@ -222,7 +219,7 @@ namespace Client
 
                 // Sleep 10 sekundi
                 Thread.Sleep(10000);
-            }            
+            }
         }
     }
 }

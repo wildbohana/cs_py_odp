@@ -5,8 +5,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-// Dobijaš ovo (bez atributa iznad)
-
 namespace Common
 {
     [ServiceContract]

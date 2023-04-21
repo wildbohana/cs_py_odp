@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Ovo sama praviš
-
 namespace Server
 {
     public class BazaPodataka

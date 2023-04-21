@@ -5,22 +5,25 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-// Dobijaš ovo (prazan Main)
-
 namespace Server
 {
     class Program
     {
         static void Main(string[] args)
         {
-            // Using, host open, host close
-            using (ServiceHost host = new ServiceHost(typeof(StudentskaSluzbaServer)))
+            // Moraš oba hosta otvoriti ovde
+            using (ServiceHost host = new ServiceHost(typeof(StudentskaSluzbaServer)), hostRepl = new ServiceHost(typeof(Replikator)))
             {
                 host.Open();
-                Console.WriteLine("Servis je uspešno pokrenut ");
+                hostRepl.Open();
 
-                Console.WriteLine("\nPritisni [ENTER] za prekid rada servera.");
+                Console.WriteLine("Servis je uspešno pokrenut ");
+                Console.WriteLine("Studentska služba : " + host.BaseAddresses.FirstOrDefault());
+                Console.WriteLine("Replikator : " + hostRepl.BaseAddresses.FirstOrDefault());
+
+                Console.WriteLine("\nPritisni [ENTER] za prekid rada servera.\n");
                 Console.ReadKey();
+                hostRepl.Close();
                 host.Close();
             }
         }
