@@ -10,13 +10,11 @@ namespace Common
     [DataContract]
     public class Student
     {
-        // Polja
         private string brIndeksa;
         private string ime;
         private string prezime;
         private DateTime vremePoslednjeIzmene;
 
-        // Propertiji
         [DataMember]
         public string BrIndeksa { get => brIndeksa; set => brIndeksa = value; }
         [DataMember]
@@ -26,15 +24,6 @@ namespace Common
         [DataMember]
         public DateTime VremePoslednjeIzmene { get => vremePoslednjeIzmene; set => vremePoslednjeIzmene = value; }
 
-        // Konstruktori (moraju dva zbog DateTime.Now)
-        public Student()
-        {
-            this.brIndeksa = "";
-            this.ime = "";
-            this.prezime = "";
-            this.vremePoslednjeIzmene = DateTime.Now;
-        }
-
         public Student(string brIndeksa, string ime, string prezime, DateTime vremePoslednjeIzmene)
         {
             this.brIndeksa = brIndeksa;
@@ -43,10 +32,17 @@ namespace Common
             this.vremePoslednjeIzmene = vremePoslednjeIzmene;
         }
 
-        // Ispis (neobavezno, ali što da ne)
+        public Student()
+        {
+            this.brIndeksa = "";
+            this.ime = "";
+            this.prezime = "";
+            this.vremePoslednjeIzmene = DateTime.Now;
+        }
+
         public override string ToString()
         {
-            return $"Indeks : {BrIndeksa},\time i prezime : {Ime} {Prezime}";
+            return $"Indeks : {BrIndeksa}, ime i prezime: {Ime} {Prezime}";
         }
     }
 }

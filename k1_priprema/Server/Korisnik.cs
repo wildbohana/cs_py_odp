@@ -19,19 +19,16 @@ namespace Server
             get => korisnickoIme;
             set => korisnickoIme = value;
         }
-        
         public string Lozinka
         {
             get => lozinka;
             set => lozinka = value;
         }
-
         public bool Autentifikovan
         {
             get => autentifikovan;
             set => autentifikovan = value;
         }
-        
         public string Token
         {
             get => token;

@@ -13,7 +13,6 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            // Komunikacioni kanal i proxy -  PRVO ZA AUTENTIFIKACIJU KORISNIKA
             ChannelFactory<IBezbednosniMehanizmi> kanalBezbednost = new ChannelFactory<IBezbednosniMehanizmi>("StudentiBezbednost");
             IBezbednosniMehanizmi proksiBezbednost = kanalBezbednost.CreateChannel();
 
@@ -21,30 +20,28 @@ namespace Client
 
             try
             {
-                Console.WriteLine("Korisničko ime :");
-                string korisnickoIme = Console.ReadLine();
-                Console.WriteLine("Lozinka:");
+                Console.Write("Korisničko ime: ");
+                string kIme = Console.ReadLine();
+                Console.Write("Lozinka: ");
                 string lozinka = Console.ReadLine();
 
-                token = proksiBezbednost.Autentifikacija(korisnickoIme, lozinka);
+                token = proksiBezbednost.Autentifikacija(kIme, lozinka);
             }
-            catch (FaultException<BezbednosniIzuzetak> izuzetak)
+            catch (FaultException<BezbednosniIzuzetak> bex)
             {
-                Console.WriteLine(izuzetak.Detail.Razlog);
+                Console.WriteLine(bex.Detail.Razlog);
                 return;
             }
 
-            // Posle toga započinješ sa redovnim radom servera
+            // I onda ide dalji rad servera
             ChannelFactory<IStudentskaSluzba> kanalSluzba = new ChannelFactory<IStudentskaSluzba>("Studenti");
-
+            
             while (true)
             {
                 try
                 {
-                    // Otvaraš proksi, realizuješ zadati scenario (i hvataš izuzetke)
                     IStudentskaSluzba proksiSluzba = kanalSluzba.CreateChannel();
 
-                    // Dodaj studenta broj 1
                     try
                     {
                         Console.WriteLine("Dodajem studenta broj 1");
@@ -101,10 +98,6 @@ namespace Client
                     {
                         Console.WriteLine(bex.Detail.Razlog);
                     }
-                    catch (FaultException<StudentskaSluzbaIzuzetak> ex)
-                    {
-                        Console.WriteLine(ex.Detail.Razlog);
-                    }
 
                     // Dodati studenta broj 3
                     try
@@ -146,26 +139,19 @@ namespace Client
                     {
                         Console.WriteLine(bex.Detail.Razlog);
                     }
-                    catch (FaultException<StudentskaSluzbaIzuzetak> ex)
-                    {
-                        Console.WriteLine(ex.Detail.Razlog);
-                    }
 
                     // Procitaj studenta broj 1
                     try
                     {
                         Console.WriteLine("Čitam studenta broj 1");
-                        Student trazeni = null;
+                        Student trazeni;
                         proksiSluzba.PronadjiStudenta("PR83/2020", out trazeni, token);
-                        Console.WriteLine(trazeni.ToString());
+
+                        if (trazeni != null) Console.WriteLine(trazeni.ToString());
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
                         Console.WriteLine(bex.Detail.Razlog);
-                    }
-                    catch (FaultException<StudentskaSluzbaIzuzetak> ex)
-                    {
-                        Console.WriteLine(ex.Detail.Razlog);
                     }
 
                     // Izmeniti studenta broj 3
@@ -207,17 +193,13 @@ namespace Client
                     {
                         Console.WriteLine(bex.Detail.Razlog);
                     }
-                    catch (FaultException<StudentskaSluzbaIzuzetak> ex)
-                    {
-                        Console.WriteLine(ex.Detail.Razlog);
-                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-
-                // Sleep 10 sekundi
+                
+                // Sleep 10s
                 Thread.Sleep(10000);
             }
         }

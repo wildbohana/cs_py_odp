@@ -1,0 +1,11 @@
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\bin\Debug\Server.exe.config
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\bin\Debug\Server.exe
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\bin\Debug\Server.pdb
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\bin\Debug\Common.dll
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\bin\Debug\Common.pdb
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\obj\Debug\Server.csproj.AssemblyReference.cache
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\obj\Debug\Server.csproj.SuggestedBindingRedirects.cache
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\obj\Debug\Server.csproj.CoreCompileInputs.cache
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\obj\Debug\Server.csproj.CopyComplete
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\obj\Debug\Server.exe
+C:\Users\wildbohana\Desktop\Template_Priprema_K1\Server\obj\Debug\Server.pdb

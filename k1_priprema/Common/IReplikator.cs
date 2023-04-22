@@ -11,8 +11,11 @@ namespace Common
     public interface IReplikator
     {
         [OperationContract]
+        [FaultContract(typeof(StudentskaSluzbaIzuzetak))]
         void Posalji(List<Student> studenti);
+
         [OperationContract]
+        [FaultContract(typeof(StudentskaSluzbaIzuzetak))]
         List<Student> Preuzmi(DateTime vremeReplikacije);
     }
 }

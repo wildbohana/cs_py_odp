@@ -9,25 +9,21 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    // Dopuni sa potrebim vrednostima
     public enum EPravaPristupa { Modifikacija, Citanje, Brisanje }
-
     class DirektorijumKorisnika
     {
         private const string _pepper = "P&0myWHq";
         private Dictionary<string, Korisnik> korisnici = new Dictionary<string, Korisnik>();
-        
+
         public DirektorijumKorisnika()
         {
-            DodajKorisnka("gost", "123");
             DodajKorisnka("admin", "admin");
+            DodajKorisnka("gost", "123");
 
-            // Admin
-            DodajPravaKorisniku("admin", EPravaPristupa.Citanje);
             DodajPravaKorisniku("admin", EPravaPristupa.Modifikacija);
+            DodajPravaKorisniku("admin", EPravaPristupa.Citanje);
             DodajPravaKorisniku("admin", EPravaPristupa.Brisanje);
 
-            // Gost
             DodajPravaKorisniku("gost", EPravaPristupa.Citanje);
         }
 
@@ -49,7 +45,6 @@ namespace Server
 
         public string AutentifikacijaKorisnika(string korisnickoIme, string lozinka)
         {
-            // TryGetValue, osim bool vrednosti, preko out parametra vraća traženog korisnika
             if (korisnici.TryGetValue(korisnickoIme, out Korisnik k))
             {
                 if (KodiraTekst(lozinka).Equals(k.Lozinka))
@@ -61,7 +56,7 @@ namespace Server
                 }
             }
 
-            BezbednosniIzuzetak izuzetak = new BezbednosniIzuzetak() { Razlog = "Korisničko ime ili šifra nisu dobri." };
+            BezbednosniIzuzetak izuzetak = new BezbednosniIzuzetak() { Razlog = "Korisničko ime ili lozinka nisu tačni." };
             throw new FaultException<BezbednosniIzuzetak>(izuzetak);
         }
 
@@ -79,12 +74,10 @@ namespace Server
         {
             BezbednosniIzuzetak izuzetak = new BezbednosniIzuzetak();
 
-            // Provera autentifikacije
             foreach (Korisnik k in korisnici.Values)
             {
                 if (k.Token == token)
                 {
-                    // Provera autorizacije
                     if (k.ProveriPravoPristupa(pravo))
                     {
                         return true;
@@ -97,7 +90,7 @@ namespace Server
                 }
             }
 
-            izuzetak.Razlog = "Korisnik nije autentifikovan ";
+            izuzetak.Razlog = "Korisnik nije autentifikovan";
             throw new FaultException<BezbednosniIzuzetak>(izuzetak);
         }
 
@@ -110,7 +103,7 @@ namespace Server
             return false;
         }
 
-        public bool ProveriPravoKorisnika(string korisnickoIme, EPravaPristupa pravoPristupa)
+        public bool ProveroPravoKorisnika(string korisnickoIme, EPravaPristupa pravoPristupa)
         {
             if (korisnici.TryGetValue(korisnickoIme, out Korisnik korisnik))
             {

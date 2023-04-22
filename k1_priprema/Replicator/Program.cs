@@ -13,32 +13,25 @@ namespace Replicator
     {
         static void Main(string[] args)
         {
-            // Klijent koji se povezuje na replikatorski servis otvara kanal ka tom servisu
-            // Preko proksija se pozivaju metode od IReplikator
-
-            DateTime vremePoslednjeReplikacije = DateTime.MinValue;
             DateTime vreme;
+            DateTime vremePoslednjeReplikacija = DateTime.MinValue;
 
             while (true)
-            {
+            {               
                 try
                 {
-                    // Kanali i proksiji i za izvor i za odredište (iznova se otvaraju pri svakoj iteraciji)
                     ChannelFactory<IReplikator> cfIzvor = new ChannelFactory<IReplikator>("Izvor");
                     IReplikator kIzvor = cfIzvor.CreateChannel();
-
                     ChannelFactory<IReplikator> cfOdrediste = new ChannelFactory<IReplikator>("Odrediste");
                     IReplikator kOdrediste = cfOdrediste.CreateChannel();
 
-                    // Replikacija podataka
                     vreme = DateTime.Now;
                     Console.WriteLine("Započeta je replikacija, vreme: " + vreme.ToString());
 
-                    List<Student> studenti = kIzvor.Preuzmi(vremePoslednjeReplikacije);
+                    List<Student> studenti = kIzvor.Preuzmi(vremePoslednjeReplikacija);
                     kOdrediste.Posalji(studenti);
 
-                    vremePoslednjeReplikacije = vreme;
-                    Thread.Sleep(4000);
+                    vremePoslednjeReplikacija = vreme;
                 }
                 catch (FaultException<StudentskaSluzbaIzuzetak> ex)
                 {
@@ -49,9 +42,8 @@ namespace Replicator
                     Console.WriteLine(e.Message);
                 }
 
-                // Ako baci izuzetak, da vidim šta je u pitanju
-                //Thread.Sleep(10000);
-            }
+                Thread.Sleep(4000);
+            }                
         }
     }
 }
