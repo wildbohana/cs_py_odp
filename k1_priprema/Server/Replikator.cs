@@ -17,7 +17,7 @@ namespace Server
                 if (s.VremePoslednjeIzmene >= vremeReplikacije)
                     retVal.Add(s);
 
-            Console.WriteLine("Replicirano je " + retVal.Count + " studenta.");
+            Console.WriteLine($"Replicirano je {retVal.Count} studenta.");
             return retVal;
         }
 
@@ -30,7 +30,7 @@ namespace Server
                 cnt++;
             }
 
-            Console.WriteLine("Ažurirano je " + cnt + " studenata.");
+            Console.WriteLine($"Ažurirano je {cnt} studenata.");
         }
     }
 }

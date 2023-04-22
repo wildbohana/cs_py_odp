@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Server
 {
+    // Dopuni sa potrebim vrednostima
     public enum EPravaPristupa { Modifikacija, Citanje, Brisanje }
 
     class DirektorijumKorisnika
@@ -32,7 +33,8 @@ namespace Server
 
         public void DodajKorisnka(string korisnickoIme, string lozinka)
         {
-            korisnici.Add(korisnickoIme, new Korisnik() { KorisnickoIme = korisnickoIme, Lozinka = KodiraTekst(lozinka) });
+            Korisnik k = new Korisnik() { KorisnickoIme = korisnickoIme, Lozinka = KodiraTekst(lozinka) };
+            korisnici.Add(k.KorisnickoIme, k);
         }
 
         private string KodiraTekst(string lozinka)
@@ -47,15 +49,15 @@ namespace Server
 
         public string AutentifikacijaKorisnika(string korisnickoIme, string lozinka)
         {
-            if (korisnici.TryGetValue(korisnickoIme, out Korisnik korisnik))
+            // TryGetValue, osim bool vrednosti, preko out parametra vraća traženog korisnika
+            if (korisnici.TryGetValue(korisnickoIme, out Korisnik k))
             {
-                if (KodiraTekst(lozinka).Equals(korisnik.Lozinka))
+                if (KodiraTekst(lozinka).Equals(k.Lozinka))
                 {
-                    string token = KodiraTekst(korisnickoIme + _pepper);
-                    korisnik.Autentifikovan = true;
-                    korisnik.Token = token;
+                    k.Token = KodiraTekst(korisnickoIme + _pepper);
+                    k.Autentifikovan = true;
 
-                    return token;
+                    return k.Token;
                 }
             }
 
@@ -65,8 +67,8 @@ namespace Server
 
         public void KorisnikAutentifikovan(string token)
         {
-            foreach (Korisnik korisnik in korisnici.Values)
-                if (korisnik.Token == token && korisnik.Autentifikovan)
+            foreach (Korisnik k in korisnici.Values)
+                if (k.Token == token && k.Autentifikovan)
                     return;
 
             BezbednosniIzuzetak izuzetak = new BezbednosniIzuzetak() { Razlog = "Korisnik nije autentifikovan." };
@@ -77,17 +79,21 @@ namespace Server
         {
             BezbednosniIzuzetak izuzetak = new BezbednosniIzuzetak();
 
-            foreach (Korisnik korisnik in korisnici.Values)
+            // Provera autentifikacije
+            foreach (Korisnik k in korisnici.Values)
             {
-                if (korisnik.Token == token)
+                if (k.Token == token)
                 {
-                    if (!korisnik.ProveriPravoPristupa(pravo))
+                    // Provera autorizacije
+                    if (k.ProveriPravoPristupa(pravo))
+                    {
+                        return true;
+                    }
+                    else
                     {
                         izuzetak.Razlog = "Korisnik nema pravo " + pravo.ToString();
                         throw new FaultException<BezbednosniIzuzetak>(izuzetak);
-                    };
-
-                    return true;
+                    }
                 }
             }
 
@@ -104,7 +110,7 @@ namespace Server
             return false;
         }
 
-        public bool ProveroPravoKorisnika(string korisnickoIme, EPravaPristupa pravoPristupa)
+        public bool ProveriPravoKorisnika(string korisnickoIme, EPravaPristupa pravoPristupa)
         {
             if (korisnici.TryGetValue(korisnickoIme, out Korisnik korisnik))
             {

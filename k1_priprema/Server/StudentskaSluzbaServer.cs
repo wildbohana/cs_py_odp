@@ -10,14 +10,16 @@ namespace Server
 {
     public class StudentskaSluzbaServer : IStudentskaSluzba, IBezbednosniMehanizmi
     {
-        // NE ZABORAVI DIREKTORIJUM KORISNIKA
+        // NE ZABORAVI DIREKTORIJUM KORISNIKA (poziv konstruktora automatski dodaje korisnike gost i admin)
         static readonly DirektorijumKorisnika direktorijum = new DirektorijumKorisnika();
 
+        // IBezbednosniMehanizmi
         public string Autentifikacija(string korisnickoIme, string lozinka)
         {
             return direktorijum.AutentifikacijaKorisnika(korisnickoIme, lozinka);
         }
 
+        // IStudentskaSluzba
         public void DodajStudenta(Student student, string token)
         {
             direktorijum.KorisnikAutentifikovanIAutorizovan(token, EPravaPristupa.Modifikacija);

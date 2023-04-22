@@ -14,8 +14,8 @@ namespace Client
         static void Main(string[] args)
         {
             // Komunikacioni kanal i proxy -  PRVO ZA AUTENTIFIKACIJU KORISNIKA
-            ChannelFactory<IBezbednosniMehanizmi> channelBezbednost = new ChannelFactory<IBezbednosniMehanizmi>("StudentiBezbednost");
-            IBezbednosniMehanizmi proxyBezbednost = channelBezbednost.CreateChannel();
+            ChannelFactory<IBezbednosniMehanizmi> kanalBezbednost = new ChannelFactory<IBezbednosniMehanizmi>("StudentiBezbednost");
+            IBezbednosniMehanizmi proksiBezbednost = kanalBezbednost.CreateChannel();
 
             string token = "";
 
@@ -26,7 +26,7 @@ namespace Client
                 Console.WriteLine("Lozinka:");
                 string lozinka = Console.ReadLine();
 
-                token = proxyBezbednost.Autentifikacija(korisnickoIme, lozinka);
+                token = proksiBezbednost.Autentifikacija(korisnickoIme, lozinka);
             }
             catch (FaultException<BezbednosniIzuzetak> izuzetak)
             {
@@ -35,20 +35,20 @@ namespace Client
             }
 
             // Posle toga započinješ sa redovnim radom servera
-            ChannelFactory<IStudentskaSluzba> servislica = new ChannelFactory<IStudentskaSluzba>("Studenti");
+            ChannelFactory<IStudentskaSluzba> kanalSluzba = new ChannelFactory<IStudentskaSluzba>("Studenti");
 
             while (true)
             {
                 try
                 {
-                    // Otvaraš proksi, realizuješ zadati scenario
-                    IStudentskaSluzba proksi = servislica.CreateChannel();
+                    // Otvaraš proksi, realizuješ zadati scenario (i hvataš izuzetke)
+                    IStudentskaSluzba proksiSluzba = kanalSluzba.CreateChannel();
 
                     // Dodaj studenta broj 1
                     try
                     {
                         Console.WriteLine("Dodajem studenta broj 1");
-                        proksi.DodajStudenta(new Student("PR83/2020", "Duki", "Suzuki", DateTime.Now), token);
+                        proksiSluzba.DodajStudenta(new Student("PR83/2020", "Duki", "Suzuki", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -63,7 +63,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Dodajem studenta broj 2");
-                        proksi.DodajStudenta(new Student("PR14/2020", "Marko", "Markovic", DateTime.Now), token);
+                        proksiSluzba.DodajStudenta(new Student("PR14/2020", "Marko", "Markovic", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -78,7 +78,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Menjam studenta broj 1");
-                        proksi.IzmeniStudenta(new Student("PR83/2020", "Bole", "Kometa", DateTime.Now), token);
+                        proksiSluzba.IzmeniStudenta(new Student("PR83/2020", "Bole", "Kometa", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -94,7 +94,7 @@ namespace Client
                     {
                         Console.WriteLine("Čitam studenta broj 1");
                         Student trazeni = null;
-                        proksi.PronadjiStudenta("PR83/2020", out trazeni, token);
+                        proksiSluzba.PronadjiStudenta("PR83/2020", out trazeni, token);
                         Console.WriteLine(trazeni.ToString());
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
@@ -110,7 +110,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Dodajem studenta broj 3");
-                        proksi.DodajStudenta(new Student("PR53/2020", "Nebojsa", "Stojanovic", DateTime.Now), token);
+                        proksiSluzba.DodajStudenta(new Student("PR53/2020", "Nebojsa", "Stojanovic", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -125,7 +125,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Menjam studenta broj 2");
-                        proksi.IzmeniStudenta(new Student("PR14/2020", "Janko", "Markovic", DateTime.Now), token);
+                        proksiSluzba.IzmeniStudenta(new Student("PR14/2020", "Janko", "Markovic", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -140,7 +140,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Brišem studenta broj 1");
-                        proksi.IzbrisiStudenta("PR83/2020", token);
+                        proksiSluzba.IzbrisiStudenta("PR83/2020", token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -156,7 +156,7 @@ namespace Client
                     {
                         Console.WriteLine("Čitam studenta broj 1");
                         Student trazeni = null;
-                        proksi.PronadjiStudenta("PR83/2020", out trazeni, token);
+                        proksiSluzba.PronadjiStudenta("PR83/2020", out trazeni, token);
                         Console.WriteLine(trazeni.ToString());
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
@@ -172,7 +172,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Menjam studenta broj 3");
-                        proksi.IzmeniStudenta(new Student("PR53/2020", "Janko", "Dragovic", DateTime.Now), token);
+                        proksiSluzba.IzmeniStudenta(new Student("PR53/2020", "Janko", "Dragovic", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -187,7 +187,7 @@ namespace Client
                     try
                     {
                         Console.WriteLine("Menjam studenta broj 2");
-                        proksi.IzmeniStudenta(new Student("PR14/2020", "Jelena", "Markovic", DateTime.Now), token);
+                        proksiSluzba.IzmeniStudenta(new Student("PR14/2020", "Jelena", "Markovic", DateTime.Now), token);
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
@@ -201,7 +201,7 @@ namespace Client
                     // Ispis svih (neobavezno, meni treba da vidim šta se dešava)
                     try
                     {
-                        Console.WriteLine(proksi.IspisiSveStudente(token));
+                        Console.WriteLine(proksiSluzba.IspisiSveStudente(token));
                     }
                     catch (FaultException<BezbednosniIzuzetak> bex)
                     {
