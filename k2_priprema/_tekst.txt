@@ -1,0 +1,4 @@
+Implementirati distribuirani sistem (klijent-server arhitekturu), tako da klijent može da obavlja CRUD operacije nad rečnikom koji se nalazi na serverskoj strani, a koji skladišti objekte klase Student. 
+Klasa Student ima sledeće atribute: ime, prezime, broj indeksa, lista ocena i prosek. 
+Prosek se računa u posebnoj metodi – izracunaj_prosek, koja se poziva u konstruktoru. Konstruktor kao parametre prihvata ime, prezime, broj indeksa i ocene. 
+Metoda za tekstualni prikaz objekta ispisuje ime, prezime, broj indeksa i prosek studenta.
