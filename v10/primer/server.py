@@ -9,8 +9,8 @@ kanal, adresa = server.accept()
 print(f"Prihvacena je konekcija sa adrese: {adresa}")
 
 while True:
-	poruka = kanal.recv(1024).decode()
-	if not poruka : break
+	poruka = kanal.recv(1024).decode()		# Kanal prima, ne server
+	if not poruka: break
 	print(f"Primljena poruka: {poruka}")
 print("Server se gasi.")
 server.close()

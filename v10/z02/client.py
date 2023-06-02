@@ -10,5 +10,6 @@ while True:
     klijent.send(broj_indeksa.encode()) 
     student = klijent.recv(1024).decode()
     print(f"Podaci o traženom studentu: {student}")
+    
 print("Konekcija se zatvara.")
 klijent.close()

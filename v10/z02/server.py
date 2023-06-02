@@ -18,10 +18,11 @@ print(f"Prihvacena je konekcija sa adrese: {adresa}")
 
 while True: 
     broj_indeksa = kanal.recv(1024).decode()
-    if not broj_indeksa : break
+    if not broj_indeksa: break
     print(f"Traži se student sa brojem indeksa: {broj_indeksa}")
-    student = studenti[broj_indeksa].__str__()
+    student = studenti[broj_indeksa].__str__()		# Interesting
     print(f"Student: {student}")
     kanal.send(student.encode())
+    
 print("Server se gasi.")
 server.close()

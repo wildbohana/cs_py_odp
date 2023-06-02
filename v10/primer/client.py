@@ -6,7 +6,7 @@ print("Veza sa serverom je uspostavljena.")
 
 while True:
 	poruka = input("Unesite poruku:")
-	if not poruka : break
+	if not poruka: break
 	klijent.send(poruka.encode())
 print("Konekcija se zatvara.")
 klijent.close()

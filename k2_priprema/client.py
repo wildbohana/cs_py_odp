@@ -4,26 +4,30 @@ def main():
     klijent = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
     klijent.connect(('localhost', 6000)) 
     print("Veza sa serverom je uspostavljena.") 
-    while True:  
+    
+    while True:
         poruka = input("Unesite akciju:") 
         student:str = ""
         match poruka:
-            case "add" :  
+            case "add":
                 student = add_student()
                 poruka = poruka + ":" + student
-            case "delete": 
+            case "delete":
                 student = delete_student()
                 poruka = poruka + ":" + student
-            case "edit" : 
-                student =  edit_student()              
+            case "edit":
+                student = edit_student()              
                 poruka = poruka + ":" + student
             case "print":
                 poruka
+                
         klijent.send(poruka.encode())
-        if not poruka : break  
+        if not poruka: break
+        
         poruka = klijent.recv(1024).decode()
-        if not poruka : break  
+        if not poruka: break
         print(f"Rezultat je:\n{poruka}")
+        
     print("Konekcija se zatvara.") 
     klijent.close()
 

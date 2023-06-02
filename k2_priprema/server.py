@@ -8,15 +8,19 @@ def server():
     server.bind(('localhost', 6000))
     server.listen()
     print("Server je pokrenut i ceka klijente.")
+    
     klijent, adresa = server.accept()
     print(f"Klijent {adresa} se povezao na server.")
+    
     while True:
         poruka = klijent.recv(1024).decode()
         if not poruka: break
         print(f"Primljena poruka: {poruka}")
+        
         parts = poruka.strip().split(":")
         action = parts[0]
         student = parts[1] if len(parts) > 1 else ""
+        
         if action == "add":
             student = student.split("|")
             student = Student(student[0], student[1], student[2], student[3])
@@ -29,7 +33,9 @@ def server():
             poruka = edit_student(student)
         elif action == "print":
             poruka = print_students()
+            
         klijent.send(poruka.encode())
+        
     print(f"Klijent {adresa} se diskonektovao.")
     klijent.close()
 

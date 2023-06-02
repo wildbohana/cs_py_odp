@@ -7,4 +7,3 @@ class Student:
 
     def __str__(self) -> str:
         return f"{self.broj_indeksa} {self.prezime} {self.ime}, prosek: {self.prosek}"
-
